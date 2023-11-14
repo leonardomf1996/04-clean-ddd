@@ -50,3 +50,31 @@ Porém, é importante lembrar que nem todos os objetos sem identidade são neces
 Um evento de domínio (domain event) é uma notificação assíncrona que indica que algo importante aconteceu no domínio do sistema. Ele representa um fato ocorrido dentro do sistema que pode ser interessante para outras partes do sistema e pode ser usado para tomar decisões ou gerar novas ações.
 Por exemplo, em um sistema de comércio eletrônico, um evento de domínio pode ser gerado quando uma nova compra é realizada com sucesso. Esse evento pode conter informações como o identificador da compra, o valor total, o endereço de entrega, entre outras informações relevantes para o domínio.
 Eventos de domínio são importantes porque permitem que diferentes partes do sistema sejam notificadas e atualizadas quando ocorrem mudanças importantes no domínio. Eles também permitem que o sistema seja projetado de forma mais modular e escalável, pois diferentes partes do sistema podem ser projetadas para reagir a diferentes tipos de eventos, de forma independente.
+
+# WatchedList
+
+Classe/pattern que permite que a gente tenha mais informações sobre itens contidos numa lista
+
+# Subdomínios
+
+Domínio "repartido" em partes que constroem um domínio
+
+- Core: O que dá/envolve dinheiro
+- Supporting: Dá suporte para o core funcionar
+- Generic: VocÇe precisa, mas não são tão importantes
+
+## Exemplos
+
+(Marketplace/E-commerce)
+Core:
+   - Compra
+   - Catálogo
+   - Pagamento
+   - Entrega
+   - Faturamento
+Supporting:
+   - Estoque
+Generic:
+   - Notificação ao cliente
+   - Promoções
+   - Chat

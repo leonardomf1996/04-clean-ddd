@@ -2,14 +2,24 @@ import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-r
 import { makeAnswer } from 'test/factories/make-answer'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { EditAnswerUseCase } from './edit-answer'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository'
+import { makeAnswerAttachment } from 'test/factories/make-answer-attachments'
 
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
 let fakeAnswersRepository: InMemoryAnswersRepository
 let sut: EditAnswerUseCase
 
 describe('Edit answer', () => {
   beforeEach(() => {
-    fakeAnswersRepository = new InMemoryAnswersRepository()
-    sut = new EditAnswerUseCase(fakeAnswersRepository)
+    inMemoryAnswerAttachmentsRepository =
+      new InMemoryAnswerAttachmentsRepository()
+    fakeAnswersRepository = new InMemoryAnswersRepository(
+      inMemoryAnswerAttachmentsRepository,
+    )
+    sut = new EditAnswerUseCase(
+      fakeAnswersRepository,
+      inMemoryAnswerAttachmentsRepository,
+    )
   })
 
   it.skip('should be able to edit a answer', async () => {
@@ -22,12 +32,11 @@ describe('Edit answer', () => {
 
     await fakeAnswersRepository.create(newAnswer)
 
-    console.log(fakeAnswersRepository.items)
-
     await sut.execute({
       authorId: 'author-1',
       content: 'new-content',
       answerId: 'answer-1',
+      attachmentsIds: ['1'],
     })
 
     expect(fakeAnswersRepository.items[0]).toMatchObject({
@@ -51,6 +60,7 @@ describe('Edit answer', () => {
         authorId: 'author-2',
         content: 'new-content',
         answerId: 'answer-1',
+        attachmentsIds: ['1'],
       })
     }).rejects.toBeInstanceOf(Error)
   })
